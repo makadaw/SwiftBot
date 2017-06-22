@@ -58,9 +58,9 @@ public final class Message {
     public let attachments: [Attachment]?
     public let quickReply: QuickReply?
     
-    internal init(mid: String, text: String, attachments: [Attachment]?, quickReply: QuickReply?) {
+    internal init(mid: String, text: String?, attachments: [Attachment]?, quickReply: QuickReply?) {
         self.mid = mid
-        self.text = text
+        self.text = text ?? ""
         self.attachments = attachments
         self.quickReply = quickReply
     }
@@ -146,8 +146,8 @@ extension Entry.Item: Mappable {
             if let message: Any = try json =>? KeyPath("message", optional: true) {
                 return .message(metadata,
                                 message: try Message(mid: message => "mid",
-                                                     text: message => "text",
-                                                     attachments: nil,
+                                                     text: message =>? KeyPath("text", optional: true),
+                                                     attachments: message =>? KeyPath("attachments", optional: true),
                                                      quickReply: nil))
             } else if let delivery = try json =>? KeyPath("delivery", optional: true) {
                 return .delivery(metadata,
@@ -160,7 +160,7 @@ extension Entry.Item: Mappable {
                                             seq: read => "seq"))
             }
         } catch {
-            return .undefined
+            throw error
         }
         return .undefined
     }

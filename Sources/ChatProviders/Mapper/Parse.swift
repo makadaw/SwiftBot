@@ -72,7 +72,7 @@ internal func parse<T>(_ json: JSON, key: KeyPath, parser: ((Any) throws -> T)) 
     return try parser(parse(json, key: key))
 }
 
-internal func parseOptional<T>(_ json: JSON, key: KeyPath, parser: ((Any) throws -> T)) throws -> T? {
+internal func parseOptional<T>(_ json: JSON, key: KeyPath, parser: ((Any) throws -> T?)) throws -> T? {
     guard let object = try parseOptional(json, key: key) else {
         return nil
     }
@@ -103,6 +103,12 @@ func =>? (lhs: JSON, rhs: KeyPath) throws -> Any? {
     return try parseOptional(lhs, key: rhs, parser: Optional.mapper({$0}))
 }
 
+func =>? <T:Mappable>(lhs: JSON, rhs: KeyPath) throws -> T? {
+    return try parseOptional(lhs, key: rhs, parser: Optional.mapper({try T.mapped(json: $0)}))
+}
+
+// More
+
 func => (lhs: JSON, rhs: KeyPath) throws -> [Any] {
     return try parse(lhs, key: rhs, parser: {
         $0 as! [Any]
@@ -114,6 +120,11 @@ func => <T:Mappable>(lhs: JSON, rhs: KeyPath) throws -> [T] {
         try Array.mapped($0)
     })
 }
+
+func =>? <T:Mappable>(lhs: JSON, rhs: KeyPath) throws -> [T]? {
+    return try parseOptional(lhs, key: rhs, parser: Optional.mapper({try Array.mapped($0)}))
+}
+
 
 // MARK: Mapper helpers
 

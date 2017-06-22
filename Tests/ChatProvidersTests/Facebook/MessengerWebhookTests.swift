@@ -1,3 +1,8 @@
+//
+//  KeyPathTests.swift
+//  SwiftBot
+//
+
 
 import XCTest
 import Foundation
@@ -7,7 +12,7 @@ class mockDelegate: ProviderDelegate {
     var lastActivity: Activity?
     
     func receive(message: Activity) {
-        self.lastActivity = message
+            self.lastActivity = message
     }
 }
 
@@ -37,16 +42,16 @@ class FacebookServiceTests : XCTestCase {
                                         ]
                                     ]
                                 ],
-                            "timestamp":1466015596919,
-                            "sender": ["id": "885721401551027"],
-                            "recipient": ["id": "260317677677806"]
+                             "timestamp":1466015596919,
+                             "sender": ["id": "885721401551027"],
+                             "recipient": ["id": "260317677677806"]
                             ]
-                        ],
-                        "time":1466015596947,
-                        "id":"260317677677806"]
+                            ],
+                         "time":1466015596947,
+                         "id":"260317677677806"]
             ]
             ] as [String : Any]
-        
+    
         do {
             let request = try webhook.parse(callback: input)
             XCTAssertEqual(request.entry.count, 1)
@@ -64,7 +69,6 @@ class FacebookServiceTests : XCTestCase {
                                     "mids": [],
                                     "watermark": 123123123123,
                                     "seq": 123
-                                
                                 ],
                              "timestamp":1466015596919,
                              "sender": ["id": "885721401551027"],
@@ -75,7 +79,7 @@ class FacebookServiceTests : XCTestCase {
                          "id":"260317677677806"]
             ]
             ] as [String : Any]
-        
+    
         do {
             let request = try webhook.parse(callback: input)
             XCTAssertEqual(request.entry.count, 1)
@@ -102,7 +106,7 @@ class FacebookServiceTests : XCTestCase {
                          "id":"260317677677806"]
             ]
             ] as [String : Any]
-        
+    
         do {
             let request = try webhook.parse(callback: input)
             XCTAssertEqual(request.entry.count, 1)
@@ -137,7 +141,7 @@ class FacebookServiceTests : XCTestCase {
                          "id":"260317677677806"]
             ]
             ] as [String : Any]
-        
+    
         do {
             let delegate = mockDelegate()
             facebook.delegate = delegate
@@ -150,6 +154,48 @@ class FacebookServiceTests : XCTestCase {
         } catch {
             XCTFail("Failed to parse JSON \(error)")
         }
+    }
+    
+    func testAttachments() {
+        let input = ["object":"page",
+                     "entry": [
+                        [
+                            "id": "223368791496726",
+                            "time": 1497537501665,
+                            "messaging": [
+                                [
+                                    "sender": [
+                                        "id": "1212086162234423"
+                                    ],
+                                    "recipient":[
+                                        "id": "223368791496726"
+                                    ],
+                                    "timestamp": 1497537501264,
+                                    "message": [
+                                        "mid": "mid.$cAADLJzyxrohi3XYgUFcrDDV6Ze4Y",
+                                        "seq": 15180,
+                                        "attachments": [
+                                            [
+                                                "type": "image",
+                                                "payload": [
+                                                    "url": "https://scontent.xx.fbcdn.net/v/t34.0-12/17690680_1741708379474843_664560316_n.gif?fallback"
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]] as [String: Any]
+        do {
+            let request = try webhook.parse(callback: input)
+            let m = request.entry.last!.messaging.last
+            XCTAssertNotNil(m)
+//            XCTAssertEqual(request.entry.count, 1)
+        } catch {
+            XCTFail("Failed to parse JSON \(error)")
+        }
+//            {\"object\":\"page\",\"entry\":[{\"id\":\"223368791496726\",\"time\":1497537501665,\"messaging\":[{\"sender\":{\"id\":\"1212086162234423\"},\"recipient\":{\"id\":\"223368791496726\"},\"timestamp\":1497537501264,\"message\":{\"mid\":\"mid.$cAADLJzyxrohi3XYgUFcrDDV6Ze4Y\",\"seq\":15180,\"attachments\":[{\"type\":\"image\",\"payload\":{\"url\":\"https:\\/\\/scontent.xx.fbcdn.net\\/v\\/t34.0-12\\/17690680_1741708379474843_664560316_n.gif?fallback", "1"), ("_nc_ad", "z-m"), ("oh", "cd8368e49dbad1eb9f6b4d661b736bf9"), ("oe", "5944B972\"}}]}}]}]}
     }
     
 }
