@@ -38,13 +38,16 @@ internal final class BotConnector {
     init(bot: Bot, provider: Provider) {
         self.bot = bot
         self.provider = provider
-        queue = DispatchQueue(label: "Dispatch \(bot.name) \(provider.name)")
+        // Run all requests cuncurrent
+        queue = DispatchQueue(label: "Dispatch \(bot.name) - \(provider.name)", attributes: .concurrent)
         
+        // Subscribe on signals
         self.provider.recieveActivity.subscribe{ [unowned self] activity in
             self.dispatch(incomeActivity: activity)
         }
-        self.bot.sendActivity.subscribe{ provider.send(activity: $0) }
-        
+        self.bot.sendActivity.subscribe{ [unowned self] activity in
+            self.provider.send(activity: activity)
+        }
     }
     
     /// For many providers we need to answer ASAP with HTTP response, so for
@@ -52,10 +55,22 @@ internal final class BotConnector {
     ///
     /// - Parameter activity: income activity
     internal func dispatch(incomeActivity activity: Activity) {
-        queue.async { [unowned self] in
+        queue.async {
             self.bot.dispatch(activity: activity)
         }
     }
+    
+    /// Dispatch output activity to provider
+    /// This method can be run concurrently inside outcome group
+    ///
+    /// - Parameter activity: activity to send
+    internal func dispatch(outcomeActivity activity: Activity) {
+        queue.async {
+            self.provider.send(activity: activity)
+        }
+    }
+    
+    
 }
 
 public final class ConnectorDispatcher {
