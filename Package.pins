@@ -2,6 +2,12 @@
   "autoPin": true,
   "pins": [
     {
+      "package": "BrightFutures",
+      "reason": null,
+      "repositoryURL": "https://github.com/Thomvis/BrightFutures.git",
+      "version": "5.2.0"
+    },
+    {
       "package": "COpenSSL",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-COpenSSL.git",
@@ -16,7 +22,7 @@
     {
       "package": "HeliumLogger",
       "reason": null,
-      "repositoryURL": "https://github.com/IBM-Swift/HeliumLogger",
+      "repositoryURL": "https://github.com/IBM-Swift/HeliumLogger.git",
       "version": "1.7.0"
     },
     {
@@ -35,37 +41,37 @@
       "package": "PerfectCURL",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-CURL.git",
-      "version": "2.1.4"
+      "version": "2.1.5"
     },
     {
       "package": "PerfectCrypto",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-Crypto.git",
-      "version": "1.0.8"
+      "version": "1.0.9"
     },
     {
       "package": "PerfectHTTP",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-HTTP.git",
-      "version": "2.2.0"
+      "version": "2.2.3"
     },
     {
       "package": "PerfectHTTPServer",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-HTTPServer.git",
-      "version": "2.2.0"
+      "version": "2.2.15"
     },
     {
       "package": "PerfectLib",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/PerfectLib.git",
-      "version": "2.0.10"
+      "version": "2.0.11"
     },
     {
       "package": "PerfectNet",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-Net.git",
-      "version": "2.1.9"
+      "version": "2.1.17"
     },
     {
       "package": "PerfectThread",
@@ -74,16 +80,22 @@
       "version": "2.0.12"
     },
     {
+      "package": "Result",
+      "reason": null,
+      "repositoryURL": "https://github.com/antitypical/Result.git",
+      "version": "3.2.3"
+    },
+    {
       "package": "cURL",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-libcurl.git",
-      "version": "2.0.4"
+      "version": "2.0.6"
     },
     {
       "package": "mysqlclient",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-mysqlclient.git",
-      "version": "2.0.0"
+      "version": "2.0.1"
     }
   ],
   "version": 1

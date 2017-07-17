@@ -7,17 +7,21 @@ let package = Package(
             name:"Mapper",
             dependencies:[]),
         Target(
-            name:"BotsKit",
+            name:"Network",
             dependencies:[]),
         Target(
-            name:"Facebook",
-            dependencies:["Mapper", "BotsKit", "ReplyService"]),
+            name:"Storage",
+            dependencies:[]),
+
+        Target(
+            name:"BotsKit",
+            dependencies:[]),
         Target(
             name:"ReplyService",
             dependencies:["BotsKit"]),
         Target(
-            name:"Storage",
-            dependencies:[]),
+            name:"Facebook",
+            dependencies:["Mapper", "BotsKit", "ReplyService"]),
         Target(
             name: "EchoBot",
             dependencies:["BotsKit"]),
@@ -31,7 +35,7 @@ let package = Package(
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-MySQL.git", majorVersion: 2),
         .Package(url: "https://github.com/IBM-Swift/Health.git", majorVersion: 0),
         // Common
-        .Package(url: "https://github.com/IBM-Swift/HeliumLogger", majorVersion: 1)
+        .Package(url: "https://github.com/IBM-Swift/HeliumLogger.git", majorVersion: 1)
     ],
   exclude:["Scripts"]       
 )
