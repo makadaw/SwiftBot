@@ -6,7 +6,8 @@
 import Foundation
 
 /// Type describe any kind of activities, that user can send throw the chat
-public struct Activity {
+public struct Activity: SessionHolder {
+    public typealias Session = String
     public enum `Type` {
         case message
         case ping
@@ -22,6 +23,7 @@ public struct Activity {
     
     public let text: String
 //    public let attachments: []
+    public let session: Session?
     
     public init(type: Type,
                 id: String,
@@ -30,7 +32,8 @@ public struct Activity {
                 recipient: Account,
                 timestamp: Date,
                 localTimestamp: Date,
-                text: String) {
+                text: String,
+                session: Session? = nil) {
         self.type = type
         self.id = id
         self.conversation = conversation
@@ -39,6 +42,7 @@ public struct Activity {
         self.timestamp = timestamp
         self.localTimestamp = localTimestamp
         self.text = text
+        self.session = session
     }
 }
 

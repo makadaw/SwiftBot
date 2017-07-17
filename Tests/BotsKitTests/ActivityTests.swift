@@ -9,7 +9,7 @@ import XCTest
 
 class ActivityTests: XCTestCase {
     
-    func message(text: String = "Text") -> Activity {
+    func message(text: String = "Text", session: Activity.Session? = nil) -> Activity {
         let from = Account(id: "from",
                            name: "From")
         let to = Account(id: "to",
@@ -25,7 +25,8 @@ class ActivityTests: XCTestCase {
                         recipient: to,
                         timestamp: Date(),
                         localTimestamp: Date(),
-                        text: text)
+                        text: text,
+                        session: session)
     }
     
     func testActivityReplayUseText() {
@@ -54,6 +55,14 @@ class ActivityTests: XCTestCase {
         let replay = message.replay(text: "")
         
         XCTAssertEqual(message.conversation, replay.conversation)
+    }
+    
+    func testActivitySessionCopy() {
+        let message = self.message(session: "session")
+        let replay = message.replay(text: "")
+        
+        XCTAssertNotNil(message.session)
+        XCTAssertEqual(message.session, replay.session)
     }
 }
 

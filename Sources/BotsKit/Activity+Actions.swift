@@ -14,6 +14,7 @@ extension Activity {
                         recipient: self.from,
                         timestamp: Date(),
                         localTimestamp: Date(),
-                        text: text)
+                        text: text,
+                        session: session)
     }
 }
