@@ -21,8 +21,9 @@ let package = Package(
         Target(
             name: "EchoBot",
             dependencies:["BotsKit"]),
+        // Bot implementation on perfect framework
         Target(
-            name:"SwiftBot",
+            name:"PerfectBot",
             dependencies:["Facebook","Storage","EchoBot"])
     ],  
 	dependencies: [
